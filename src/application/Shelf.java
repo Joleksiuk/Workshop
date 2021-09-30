@@ -1,8 +1,6 @@
 package application;
 
 import javafx.application.Platform;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 
 import java.io.IOException;
 import java.util.Random;
@@ -10,46 +8,60 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class Shelf extends Thread{
+public class Shelf extends Thread {
 
-    volatile Order orders[];
-    volatile int enter;
-    volatile int exit;
-    volatile int counter;
+    final Lock accessToMonitor;
+    final Condition shelfIsFull;
+    final Condition shelfIsEmpty;
+    volatile Order[] orders;
+    int enter;
+    int exit;
+    int counterOfOrdersOnShelf;
     int size;
 
     Random rand = new Random();
+    int counterOfFixedOrders;
+    int numberOfAllOrders;
+    int currentCount;
+    GUIController sceneController;
 
-    final Lock dostep;
-    final Condition pelny;
-    final Condition pusty;
-
-    @FXML
-    Label orderNumber;
-
-
-    Shelf(int size, Label orderNumber) throws IOException {
+    Shelf(int size, int numOfOrders, GUIController sceneController) throws IOException {
 
         this.size = size;
-        orders = new Order[size];
-        enter = 0;
-        exit = 0;
-        counter = 0;
-        dostep = new ReentrantLock();
-        pelny = dostep.newCondition();
-        pusty = dostep.newCondition();
-        this.orderNumber = orderNumber;
+        this.orders = new Order[size];
 
+        //Indexes of shelf
+        this.enter = 0;
+        this.exit = 0;
+
+        //Counters
+        this.counterOfOrdersOnShelf = 0;
+        this.counterOfFixedOrders = 0;
+        this.numberOfAllOrders = numOfOrders;
+        this.currentCount = 0;
+
+        //Condition and Locks
+        this.accessToMonitor = new ReentrantLock();
+        this.shelfIsFull = accessToMonitor.newCondition();
+        this.shelfIsEmpty = accessToMonitor.newCondition();
+
+        this.sceneController = sceneController;
     }
+
 
     public void addOrder(int count) {
 
         Order element = new Order(count);
-        dostep.lock();
+        currentCount = count;
+
+        accessToMonitor.lock();
+
         try {
-            if (counter == size) {
+
+
+            if (counterOfOrdersOnShelf == size) {
                 try {
-                    pelny.await();
+                    shelfIsFull.await();
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
@@ -57,55 +69,74 @@ public class Shelf extends Thread{
             orders[enter] = element;
             enter = (enter + 1) % size;
 
-            try {
-                Thread.sleep(rand.nextInt(10)+1);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-            System.out.println("Reciever: I recived order number : "+ element.id);
+            System.out.println("Reciever: I recived order number : " + element.id);
 
-            Platform.runLater(()->{
-                orderNumber.setText(Integer.toString(element.id));
+            counterOfOrdersOnShelf = counterOfOrdersOnShelf + 1;
+
+            Platform.runLater(() -> {
+                sceneController.ordersOnShelf.setText(Integer.toString(counterOfOrdersOnShelf));
             });
 
-            counter = counter + 1;
-            pusty.signal();
+            Platform.runLater(() -> {
+                sceneController.orderNumber.setText(Integer.toString(element.id));
+                sceneController.clientData.setText(element.returnNameData());
+                sceneController.clientData2.setText(element.returnAddressData());
+            });
+
+            shelfIsEmpty.signal();
 
         } finally {
-            dostep.unlock();
+            accessToMonitor.unlock();
         }
     }
 
     public Order getOrder(int fixerID) {
 
-        dostep.lock();
+        accessToMonitor.lock();
         Order element;
 
         try {
-            if (counter == 0) {
+
+            if (counterOfOrdersOnShelf == 0) {
                 try {
-                    pusty.await();
+                    shelfIsEmpty.await();
 
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
             }
+
             element = orders[exit];
             exit = (exit + 1) % size;
 
-            try {
-                Thread.sleep(rand.nextInt(1000)+1000);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-            System.out.println("Fixer " + fixerID + ":  I fixed order number :" + element.id);
+            counterOfOrdersOnShelf = counterOfOrdersOnShelf - 1;
 
-            counter = counter - 1;
-            pelny.signal();
+            Platform.runLater(() -> {
+                sceneController.ordersOnShelf.setText(Integer.toString(counterOfOrdersOnShelf));
+            });
+
+            shelfIsFull.signal();
 
         } finally {
-            dostep.unlock();
+            accessToMonitor.unlock();
         }
         return element;
     }
+
+    public void delay(int a, int b) {
+        try {
+            Thread.sleep(rand.nextInt(a) + b);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void fixCounterIncrement() {
+        counterOfFixedOrders++;
+        Platform.runLater(() -> {
+            sceneController.ordersFixed.setText(Integer.toString(counterOfFixedOrders));
+        });
+    }
 }
+
+

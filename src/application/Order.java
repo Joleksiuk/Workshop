@@ -1,23 +1,65 @@
 package application;
 
+import java.util.Random;
+
 public class Order {
     int id;
     String name;
     String lastname;
+    String city;
+    String street;
+    int buildingNumber;
+    Random rand = new Random();
 
+    String[] names = {"Ann", "Mark", "Zoe", "Klaus", "Christina", "Josh", "Chloe", "Frank", "Alice", "Bob", "Hannah"};
+    String[] lastnames = {"KNIGHT", "GRANT", "NICHOLS", "MILLS", "PALMER", "DANIELS", "BLACK", "HUNT", "ROBERTSON", "RICE", "HOLMES", "SHAW", "GORDON", "BURNS", "REYES"};
+    String[] cities = {"New York", "Washington", "New Hampshire", "Chicago", "Detroit"};
+    String[] streets = {"River", "Livingston Ave", "Laurel", "Honey", "Flower", "Harrison Ave", "Eagle", "Troy Rd"};
 
-    Order(int id){
+    Order(int id) {
 
-        this.id=id;
-        this.name = "name";
-        this.lastname = "lastname";
+        this.id = id;
+
+        int a = rand.nextInt(names.length);
+        this.name = names[a];
+
+        a = rand.nextInt(lastnames.length);
+        this.lastname = lastnames[a];
+
+        a = rand.nextInt(cities.length);
+        this.city = cities[a];
+
+        a = rand.nextInt(streets.length);
+        this.street = streets[a];
+
+        a = rand.nextInt(300);
+        this.buildingNumber = a;
 
     }
-    Order(){
-        this.id=-1;
+
+    Order() {
+        this.name = "None";
+        this.lastname = "None";
+        this.city = "None";
+        this.street = "None";
+        this.buildingNumber = -1;
+        this.id = -1;
     }
 
-    String getClientName(){
-        return this.name+" "+this.lastname;
+    public void displayData() {
+        System.out.println("Order id : " + this.id);
+        System.out.println("Name : " + this.name);
+        System.out.println("lastame : " + this.lastname);
+        System.out.println("City : " + this.city);
+        System.out.println("Street : " + this.street);
+        System.out.println("Building : " + this.buildingNumber);
+    }
+
+    public String returnNameData() {
+        return name + " " + lastname;
+    }
+
+    public String returnAddressData() {
+        return city + " " + street + " " + buildingNumber;
     }
 }

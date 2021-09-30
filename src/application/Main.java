@@ -2,9 +2,11 @@ package application;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
+
 
 public class Main extends Application {
 
@@ -14,7 +16,10 @@ public class Main extends Application {
 
             Parent root = FXMLLoader.load(getClass().getResource("Scene.fxml"));
             Scene scene = new Scene(root);
+            Image icon = new Image("pictures/AppLogo.png");
+            stage.getIcons().add(icon);
             stage.setScene(scene);
+            stage.setTitle("Workshop Simulation");
             stage.show();
 
         } catch(Exception e) {

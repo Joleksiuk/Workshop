@@ -2,32 +2,238 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="760.0" prefWidth="969.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SceneController">
+<AnchorPane prefHeight="795.0" prefWidth="1100.0" style="-fx-background-color: LIGHTBLUE;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GUIController">
    <children>
-      <TextField fx:id="shelfSize" layoutX="24.0" layoutY="48.0" />
-      <TextField fx:id="ordersNum" layoutX="216.0" layoutY="48.0" />
-      <Text layoutX="24.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Size of Shelf">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="316.0" layoutX="790.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" width="298.0">
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8815789222717285" green="0.8638249039649963" blue="0.526498556137085" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.8421052694320679" green="0.4951266944408417" blue="0.4951266944408417" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="316.0" layoutX="246.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" width="531.0">
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0" startY="0.05238095238095236">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8357699513435364" green="0.8713043928146362" blue="0.9210526347160339" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.5363060235977173" green="0.7617852687835693" blue="0.9342105388641357" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill></Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="316.0" layoutX="16.0" layoutY="461.0" stroke="BLACK" strokeType="INSIDE" width="1072.0">
+         <fill>
+            <LinearGradient endX="0.5095238095238095" endY="1.0" startX="0.4857142857142857">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.6848196983337402" green="0.9605262875556946" blue="0.7215805649757385" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.30149999260902405" green="0.6101353764533997" blue="0.6700000166893005" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill></Rectangle>
+      <TextField fx:id="shelfSize" layoutX="24.0" layoutY="57.0" prefHeight="32.0" prefWidth="155.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <TextField fx:id="ordersNum" layoutX="212.0" layoutY="57.0" prefHeight="32.0" prefWidth="155.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <Text layoutX="24.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Size of Shelf">
          <font>
             <Font size="24.0" />
          </font></Text>
-      <Text layoutX="216.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Orders">
+      <Text layoutX="212.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Orders">
          <font>
             <Font size="24.0" />
          </font></Text>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="105.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="215.0" fitWidth="194.0" layoutX="641.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../pictures/odbiorca.png" />
+            <Image url="@../pictures/receiver.png" />
          </image>
       </ImageView>
-      <Text layoutX="222.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="I recieved Order: " />
-      <Label fx:id="orderNumber" layoutX="337.0" layoutY="171.0" text="Label" />
-      <Button layoutX="429.0" layoutY="48.0" mnemonicParsing="false" onAction="#startSimulation" text="Start Simulation" />
+      <Text layoutX="30.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="All orders: " wrappingWidth="116.0">
+         <font>
+            <Font size="24.0" />
+         </font></Text>
+      <Label fx:id="orderNumber" layoutX="538.0" layoutY="125.0" prefHeight="53.0" prefWidth="105.0">
+         <font>
+            <Font size="36.0" />
+         </font></Label>
+      <Button layoutX="786.0" layoutY="49.0" mnemonicParsing="false" onAction="#startSimulationButtonPressed" prefHeight="53.0" prefWidth="208.0" text="Start Simulation">
+         <font>
+            <Font size="24.0" />
+         </font></Button>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="318.0" layoutY="284.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pictures/table.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="224.0" fitWidth="218.0" layoutX="850.0" layoutY="199.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pictures/shelf.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="215.0" fitWidth="147.0" layoutX="367.0" layoutY="499.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pictures/fixer.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="208.0" fitWidth="147.0" layoutX="626.0" layoutY="502.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pictures/fixer.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="215.0" fitWidth="161.0" layoutX="890.0" layoutY="499.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pictures/fixer.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="receiverBox" fitHeight="41.0" fitWidth="77.0" layoutX="405.0" layoutY="291.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pictures/box.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="194.0" fitWidth="201.0" layoutX="70.0" layoutY="531.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pictures/shelf.png" />
+         </image>
+      </ImageView>
+      <Circle fx:id="circle1" fill="#80c69e" layoutX="514.0" layoutY="494.0" radius="27.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="circle2" fill="#91d0ac" layoutX="777.0" layoutY="493.0" radius="27.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="circle3" fill="#84c9a1" layoutX="1037.0" layoutY="493.0" radius="27.0" stroke="BLACK" strokeType="INSIDE" />
+      <Text layoutX="802.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Orders on Shelf :">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="32.0" fitWidth="40.0" layoutX="88.0" layoutY="542.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pictures/box.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="32.0" fitWidth="40.0" layoutX="133.0" layoutY="542.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pictures/box.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="32.0" fitWidth="40.0" layoutX="88.0" layoutY="577.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pictures/box.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="32.0" fitWidth="40.0" layoutX="133.0" layoutY="577.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pictures/box.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="32.0" fitWidth="40.0" layoutX="179.0" layoutY="542.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pictures/box.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="ordersOnShelf" layoutX="989.0" layoutY="134.0" prefHeight="41.0" prefWidth="96.0">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Label fx:id="fixer1" layoutX="303.0" layoutY="731.0" prefHeight="35.0" prefWidth="238.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="fixer2" layoutX="569.0" layoutY="731.0" prefHeight="35.0" prefWidth="238.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="fixer3" layoutX="841.0" layoutY="731.0" prefHeight="35.0" prefWidth="238.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="ordersFixed" layoutX="199.0" layoutY="459.0">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Text layoutX="50.0" layoutY="495.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fixed Orders">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Button layoutX="18.0" layoutY="210.0" mnemonicParsing="false" onAction="#addOrderButtonPressed" prefHeight="102.0" prefWidth="129.0" text="+">
+         <font>
+            <Font size="48.0" />
+         </font></Button>
+      <Label fx:id="allOrders" layoutX="32.0" layoutY="151.0" prefHeight="54.0" prefWidth="76.0">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Text layoutX="253.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="I Received Order Number:">
+         <font>
+            <Font name="Arial" size="24.0" />
+         </font>
+      </Text>
+      <Label fx:id="clientData" layoutX="253.0" layoutY="189.0" prefHeight="41.0" prefWidth="339.0" textFill="#0b00ab">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="clientData2" layoutX="253.0" layoutY="240.0" prefHeight="41.0" prefWidth="339.0" textFill="#000ea4">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button layoutX="18.0" layoutY="330.0" mnemonicParsing="false" onAction="#substractOrderButtonPressed" prefHeight="73.0" prefWidth="129.0" text="-">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Button>
+      <Slider fx:id="slider" blockIncrement="1.0" layoutX="167.0" layoutY="209.0" majorTickUnit="1.0" max="10.0" orientation="VERTICAL" prefHeight="231.0" prefWidth="66.0" />
+      <Label fx:id="receiverSliderLabel" layoutX="172.0" layoutY="152.0" prefHeight="53.0" prefWidth="56.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
