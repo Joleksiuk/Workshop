@@ -43,3 +43,4 @@ Made with javaFX library.
 The default settings are taken from the data.properties file.
 If the user fails to enter data in or enters incorrect, the simulation will be invoked with default settings from the data.properties file.
 
+![workshop](https://user-images.githubusercontent.com/26255190/136769522-382ea0f6-86cd-4f35-9226-5d84397338a3.jpg)
